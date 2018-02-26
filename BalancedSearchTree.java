@@ -329,9 +329,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Used in rebalancing of tree. Checking the uncle to correctly form to Red-Black properties. 
+	 * Method which performs left-rotation. This is performed when the given tree is not balanced. 
 	 *
-	 * @param node The node which we are rotating from.
+	 * @param node The node which we are rotating from (when the tree needs to be balanced from).
 	 */
 	private void rotateLeft(Treenode<T> node) {
 		Treenode<T> temp;
@@ -357,9 +357,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Rotates nodes one to the right with temp as a focal point
+	 * Method which performs right-rotation. This is performed when the given tree is not balanced. 
 	 *
-	 * @param node The node which we are rotating from
+	 * @param node The node which we are rotating from (when the tree needs to be balanced from).
 	 */
 	private void rotateRight(Treenode<T> node) {
 		Treenode<T> temp;
@@ -385,16 +385,16 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Finding the smallest key. Used when we are attempting to use successor to
-	 * delete a node from our tree
+	 * Method which'll recursively be called. Looks for our left-most node (smallest item). 
+	 * Used when we are attempting to use successor to delete a node from our tree
 	 *
-	 * @param node The node being used.
-	 * @return The left-most node.
+	 * @param node The node being used to find it's most left node.
+	 * @return The left-most node of our node
 	 */
 	private T leftMost(Treenode<T> node) {
 		if (node.left == null) {
-			return node.key;
+			return node.key; //found the given node and thus return.
 		}
-		return leftMost(node.left);
+		return leftMost(node.left); 
 	}
 }
