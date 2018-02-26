@@ -113,7 +113,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 */
 	private int heightHelper(Treenode<T> node) {
 		if (node == null) {
-			return -1;
+			return 0;
 		}
 		else {
 			return 1 + Math.max(heightHelper(node.left), heightHelper(node.right));
