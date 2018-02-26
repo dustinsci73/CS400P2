@@ -269,6 +269,22 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		return node;
 	}
 	
+	private Treenode<T> getNode(Treenode<T> node)
+	{
+		if (node == root)
+		{
+			return null;
+		}
+		else if (node.parent.parent.left == node.parent)
+		{
+			return node.parent.parent.right;
+		}
+		else if (node.parent.parent.right == node.parent)
+		{
+			return node.parent.parent.left;
+		}
+		return null;
+	}
 	/**
 	 * Method which will balances the red-black after after one is to perform insert. 
 	 * This does not align when one is deleting from the tree. Uses the uncle 
