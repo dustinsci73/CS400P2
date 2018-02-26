@@ -248,7 +248,11 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 			node.left = deleteHelper(item, node.left);
 		}
 		else {
-			if (node.left == null || node.right == null) {
+			if (node == root) {
+				node = null;
+				root = null;
+			}
+			else if (node.left == null || node.right == null) {
 				if (node.left == null && node.right == null) {
 					node.key = null;
 					node = null;
