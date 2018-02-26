@@ -451,6 +451,10 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	private T leftMost(Treenode<T> node) {
 		// TODO return the key value of the left most node in this subtree
 		// or return node's key if node does not have a left child
-		return node.key;
+		if (node.left == null)
+		{
+			return node.key;
+		}
+		return leftMost(node.left);
 	}
 }
