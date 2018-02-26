@@ -159,17 +159,12 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Inserts the new node with item as its key in the correct position. Makes use
+	 * of the insertHelper.
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param item The item looking to be inserted
 	 */
 	public void insert(T item) {
-		//TODO if item is null throw IllegalArgumentException, 
-		// otherwise insert into balanced search tree
 		if (item == null)
 		{
 			throw new IllegalArgumentException();
@@ -189,14 +184,12 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * The insert helper for the 
 	 *
-	 * @param item (Describe the first parameter here)
-	 * @param node (Do the same for each additional parameter)
-	 * @return newTreeNode 
-	 * @return insertHelper
+	 * @param item The item to be inserted
+	 * @param node The node which we are on
+	 * @return newTreeNode insert the node when it is not found
+	 * @return insertHelper Recursive call
 	 */
 	private Treenode<T> insertHelper(T item, Treenode <T> node)
 	{
@@ -236,16 +229,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * additional paragraphs should be preceded by <p>, the html tag for
 	 * a new paragraph.)
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param item The item looking to be deleted. We make use of the deleteHelper method.
 	 */
 	public void delete(T item) {
-		//TODO if item is null or not found in tree, return without error
-		// else remove this item key from the tree and rebalance
-
-		// NOTE: if you are unable to get delete implemented
-		// it will be at most 5% of the score for this program assignment
 		if (item == null || lookup(item) == false)
 		{
 			return;
@@ -257,13 +243,10 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Helper method for delete
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param item The node which is looking to be deleted.
+	 * @param node The node in which our helper method is checking on
 	 */
 	private Treenode<T> deleteHelper(T item, Treenode<T> node)
 	{
@@ -303,13 +286,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Balances the red-black after we are inserting. This does not check when we are deleting from the tree.
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param node (Describe the first parameter here)
 	 */
 	private void balance(Treenode<T> node)
 	{
@@ -387,11 +366,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Used in rebalancing of tree. Checking the uncle to correctly form to 
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
+	 * @param node T
 	 * @param (parameter name) (Do the same for each additional parameter)
 	 * @return (description of the return value)
 	 */
