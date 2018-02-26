@@ -313,7 +313,77 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 */
 	private void balance(Treenode<T> node)
 	{
-		
+		Treenode<T> balNode = getNode(node);
+		if (node == root)
+		{
+			root.color = false;
+			return;
+		}
+		if (node.parent.color != false)
+		{
+			if (balNode == null || balNode.color == false)
+			{
+				if (node.parent.parent.left == node.parent)
+				{
+					if (node.parent.left == node)
+					{
+						rotateRight(node.parent.parent);
+						
+						if (node.parent.color != node.parent.right.color)
+						{
+							boolean colorTemp = node.parent.color;
+							node.parent.color = node.parent.right.color;
+							node.parent.right.color = colorTemp;
+						}
+					}
+					else
+					{
+						rotateLeft(node.parent);
+						rotateRight(node.left);
+						
+						if (node.color != node.right.color)
+						{
+							boolean colorTemp = node.color;
+							node.color = node.right.color;
+							node.right.color = colorTemp;
+						}
+					}
+				}
+				else
+				{
+					if (node.parent.left == node)
+					{
+						rotateRight(node.parent);
+						rotateLeft(node.left);
+						
+						if (node.color != node.left.color)
+						{
+							boolean colorTemp = node.color;
+							node.color = node.left.color;
+							node.left.color = colorTemp;
+						}
+					}
+					else
+					{
+						rotateLeft(node.parent.parent);
+						
+						if (node.parent.color != node.parent.left.color)
+						{
+							boolean colorTemp = node.parent.color;
+							node.parent.color = node.parent.left.color;
+							node.parent.left.color = colorTemp;
+						}
+					}
+				}
+			}
+			else if (balNode.color == true)
+			{
+				balNode.color = false;
+				node.parent.color = false;
+				node.parent.parent.color = true;
+				balance(node.parent.parent);
+			}
+		}
 	}
 	
 	/**
