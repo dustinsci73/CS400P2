@@ -16,38 +16,41 @@
 
 /**
  * The program makes use of a RED-BLACK TREE. Makes use of the given skeleton
- * code.
+ * code. Uses typical red-black methods to follow given properties. This program 
+ * allows one to insert, delete, lookup, as well as rotate when the integrety of a 
+ * such red-black properties are lost.
  *
- * @author (your name)
+ * @author Dustin Li, Brennan Fife
  */
 public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeADT<T> {
 
 	/**
-	 * Class for nodes in the binary tree. Stores key items and links to 
-	 * other nodes
-	 * @author (your name)
-	 * @param <K> generic comparable object for key
+	 * Class for nodes within the binary tree. Stores key items and links to 
+	 * sibling or parent nodes.
+	 * 
+	 * @author Dustin Li, Brennan Fife
+	 * @param <K> Generic comparable object for key
 	 */
 	protected class Treenode<K extends Comparable<K>> {
 		public Treenode(K item) {
 			this(item,null,null,null,false);
 		}
 		public Treenode(K item, Treenode<K> left, Treenode<K> right, Treenode<K> parent, boolean color) {
-			key = item;
+			key = item; //item value.
 			this.left = left; //left child
 			this.right = right; //right child
 			this.color = color; //node color
 			this.parent = parent; //node parent
 		}
 		
-		boolean color;
+		boolean color; //true, false to check if program is following Red-Black property
 		K key;
-		Treenode<K> left;
-		Treenode<K> right;
-		Treenode<K> parent;
+		Treenode<K> left; //links to left subtree
+		Treenode<K> right; //links to right subtree
+		Treenode<K> parent; //links to parent
 	}
 
-    private static final boolean RED   = true;
+    private static final boolean RED   = true; 
     private static final boolean BLACK = false;
 	protected Treenode<T> root;
 	
@@ -60,6 +63,13 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		return AscendingOrderHelper(root);
 	}
 	
+	/**
+	 * Allows us to descend down a given route of tree. Will recursively call until
+	 * we have the final result.
+	 *
+	 * @param node The node being questioned
+	 * @return result The chain of nodes
+	 */
 	private String AscendingOrderHelper(Treenode<T> node) {
 		String result = "";
 		if (isEmpty()) {
@@ -78,23 +88,25 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * Returns true if our tree is empty
+	 * Returns true if our tree is empty (root is null)
 	 */
 	public boolean isEmpty() {
 		return root == null;
 	}
 
 	/**
-	 * Returns the height of our tree
+	 * Returns the height of our tree by calling the heightHelper method.
 	 */
 	public int height() {
 		return heightHelper(root); 
 	}
 	
 	/**
-	 * Returns the height of our subtree.
+	 * Returns the height of our subtree. If the node is not there, we subtract 1
+	 * with respect to how we count the height. Otherwise, it'll recursively call to 
+	 * find the max point of the subtree height.
 	 *
-	 * @param node Where we are starting the count on height
+	 * @param node Where we are starting the count for height
 	 * @return The height of our subtree 
 	 */
 	private int heightHelper(Treenode<T> node) {
@@ -107,7 +119,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * Returns true if the tree contains a node with the item in question
+	 * Returns true if the tree contains the node with the item in question.
+	 * It will throught an IllegalArgumentException when the item sought to be 
+	 * lookedup is not within our tree.
 	 *
 	 * @param item The item we are looking up.
 	 */
@@ -122,9 +136,10 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	
 	/**
 	 * Given the node, are trying to determine if the value is within our tree.
-	 * If it is, then return true.
+	 * If it is, returns true. Continuously searches through tree by caluculating lower
+	 * or higher values.
 	 *
-	 * @param node The node to begin off of
+	 * @param node The node to begin off 
 	 * @param item What value is contained within the node
 	 */
 	private boolean lookupHelper(Treenode<T> node, T item) {
@@ -140,12 +155,12 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		else {
 			return lookupHelper(node.right, item);
 		}
-		
 	}
 
 	/**
 	 * Inserts the new node with item as its key in the correct position. Makes use
-	 * of the insertHelper.
+	 * of the insertHelper. Will give the node the default color red. Will through an 
+	 * IllegalArgumentException anytime the item is not available (null)
 	 *
 	 * @param item The item looking to be inserted
 	 */
@@ -166,7 +181,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * The insert helper for the 
+	 * The insertHelper for the insert methiod,
 	 *
 	 * @param item The item to be inserted
 	 * @param node The node which we are on
@@ -200,7 +215,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Method that will call the deleteHelper method when one node is to be deleted.
+	 * Method that will call the deleteHelper method. Allows us to delete said node. 
 	 *
 	 * @param item The item looking to be deleted. We make use of the deleteHelper method.
 	 */
@@ -214,7 +229,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Helper method for delete
+	 * Helper method for delete.
 	 *
 	 * @param item The node which is looking to be deleted.
 	 * @param node The node in which our helper method is checking on
