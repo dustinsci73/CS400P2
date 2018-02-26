@@ -120,7 +120,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 
 	/**
 	 * Returns true if the tree contains the node with the item in question.
-	 * It will throught an IllegalArgumentException when the item sought to be 
+	 * Throw an IllegalArgumentException anytime the item sought to be 
 	 * lookedup is not within our tree.
 	 *
 	 * @param item The item we are looking up.
@@ -139,7 +139,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * If it is, returns true. Continuously searches through tree by caluculating lower
 	 * or higher values.
 	 *
-	 * @param node The node to begin off 
+	 * @param node The node to start from
 	 * @param item What value is contained within the node
 	 */
 	private boolean lookupHelper(Treenode<T> node, T item) {
@@ -159,8 +159,8 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 
 	/**
 	 * Inserts the new node with item as its key in the correct position. Makes use
-	 * of the insertHelper. Will give the node the default color red. Will through an 
-	 * IllegalArgumentException anytime the item is not available (null)
+	 * of the insertHelper. Will give the node the default color red. Will throw an 
+	 * IllegalArgumentException anytime the item is not available (null).
 	 *
 	 * @param item The item looking to be inserted
 	 */
@@ -181,7 +181,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 
 	/**
-	 * The insertHelper for the insert methiod,
+	 * The insertHelper for the insert method. Is recursivly called to evaluate where the given node needs to 
+	 * be inserted within the tree by comparing it's value with the right and left child nodes. When there is
+	 * none (and the node needs to be inserted), it will then place it in the respective left or right null location.
 	 *
 	 * @param item The item to be inserted
 	 * @param node The node which we are on
@@ -217,7 +219,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	/**
 	 * Method that will call the deleteHelper method. Allows us to delete said node. 
 	 *
-	 * @param item The item looking to be deleted. We make use of the deleteHelper method.
+	 * @param item The item looking to be deleted. Makes use of the deleteHelper method.
 	 */
 	public void delete(T item) {
 		if (item == null || lookup(item) == false) {
@@ -233,6 +235,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 *
 	 * @param item The node which is looking to be deleted.
 	 * @param node The node in which our helper method is checking on
+	 * @return The needed node to compile the 
 	 */
 	private Treenode<T> deleteHelper(T item, Treenode<T> node) {
 		if (item.compareTo(node.key) > 0) {
@@ -264,7 +267,9 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Balances the red-black after we are inserting. This does not check when we are deleting from the tree.
+	 * Method which will balances the red-black after after we perform insert. 
+	 * This does not align when we are deleting from the tree. We use the uncle 
+	 * and grandparent of the given nodes to allow where the node needs to move to.
 	 *
 	 * @param node The node of focal point
 	 */
@@ -329,7 +334,8 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Method which performs left-rotation. This is performed when the given tree is not balanced. 
+	 * Method which performs left-rotation. This is performed when the given tree is not balanced. Swaps
+	 * values with temp to move values inside our node.
 	 *
 	 * @param node The node which we are rotating from (when the tree needs to be balanced from).
 	 */
@@ -357,7 +363,8 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Method which performs right-rotation. This is performed when the given tree is not balanced. 
+	 * Method which performs right-rotation. This is performed when the given tree is not balanced. Swaps
+	 * values with temp to move values inside our node.
 	 *
 	 * @param node The node which we are rotating from (when the tree needs to be balanced from).
 	 */
