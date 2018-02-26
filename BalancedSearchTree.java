@@ -60,22 +60,17 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		return AscendingOrderHelper(root);
 	}
 	
-	private String AscendingOrderHelper(Treenode<T> node)
-	{
+	private String AscendingOrderHelper(Treenode<T> node) {
 		String result = "";
-		if (isEmpty())
-		{
+		if (isEmpty()) {
 			return "";
 		}
-		else 
-		{
-			if (node.left != null)
-			{
+		else  {
+			if (node.left != null) {
 				result += AscendingOrderHelper(node.left);
 			}
 			result += node.key + " ";
-			if (node.right != null)
-			{
+			if (node.right != null) {
 				result += AscendingOrderHelper(node.right);
 			}
 			return result;
@@ -102,14 +97,11 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @param node Where we are starting the count on height
 	 * @return The height of our subtree 
 	 */
-	private int heightHelper(Treenode<T> node)
-	{
-		if (node == null)
-		{
+	private int heightHelper(Treenode<T> node) {
+		if (node == null) {
 			return -1;
 		}
-		else
-		{
+		else {
 			return 1 + Math.max(heightHelper(node.left), heightHelper(node.right));
 		}
 	}
@@ -120,12 +112,10 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @param item The item we are looking up.
 	 */
 	public boolean lookup(T item) {
-		if (item == null)
-		{
+		if (item == null) {
 			throw new IllegalArgumentException();
 		}
-		else
-		{
+		else {
 			return lookupHelper(root, item);
 		}
 	}
@@ -137,22 +127,17 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @param node The node to begin off of
 	 * @param item What value is contained within the node
 	 */
-	private boolean lookupHelper(Treenode<T> node, T item)
-	{
-		if (node == null)
-		{
+	private boolean lookupHelper(Treenode<T> node, T item) {
+		if (node == null) {
 			return false;
 		}
-		if (node.key == item)
-		{
+		if (node.key == item) {
 			return true;
 		}
-		if (node.left != null)
-		{
+		if (node.left != null) {
 			return lookupHelper(node.left, item);
 		}
-		else
-		{
+		else {
 			return lookupHelper(node.right, item);
 		}
 		
@@ -165,18 +150,15 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @param item The item looking to be inserted
 	 */
 	public void insert(T item) {
-		if (item == null)
-		{
+		if (item == null) {
 			throw new IllegalArgumentException();
 		}
 		
-		if (isEmpty())
-		{
+		if (isEmpty()) {
 			root = new Treenode<T>(item);
 			root.color = false;
 		}
-		else
-		{
+		else {
 			Treenode<T> node = insertHelper(item, root);
 			balance(node);
 			root.color = false;
@@ -191,53 +173,42 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @return newTreeNode insert the node when it is not found
 	 * @return insertHelper Recursive call
 	 */
-	private Treenode<T> insertHelper(T item, Treenode <T> node)
-	{
-		if (item.compareTo(node.key) > 0)
-		{
-			if (node.right == null)
-			{
+	private Treenode<T> insertHelper(T item, Treenode <T> node) {
+		if (item.compareTo(node.key) > 0) {
+			if (node.right == null) {
 				Treenode<T> newTreenode = new Treenode<T> (item);
 				newTreenode.parent = node;
 				node.right = newTreenode;
 				return newTreenode;
 			}
-			else 
-			{
+			else {
 				return insertHelper(item, node.right);
 			}
 		}
 		
-		else 
-		{
-			if (node.left == null)
-			{
+		else  {
+			if (node.left == null) {
 				Treenode<T> newTreenode = new Treenode<T> (item);
 				newTreenode.parent = node;
 				node.left = newTreenode;
 				return newTreenode;
 			}
-			else
-			{
+			else {
 				return insertHelper(item, node.left);
 			}
 		}
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Method that will call the deleteHelper method when one node is to be deleted.
 	 *
 	 * @param item The item looking to be deleted. We make use of the deleteHelper method.
 	 */
 	public void delete(T item) {
-		if (item == null || lookup(item) == false)
-		{
+		if (item == null || lookup(item) == false) {
 			return;
 		}
-		else
-		{
+		else {
 			deleteHelper(item, root);
 		}
 	}
@@ -248,35 +219,27 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	 * @param item The node which is looking to be deleted.
 	 * @param node The node in which our helper method is checking on
 	 */
-	private Treenode<T> deleteHelper(T item, Treenode<T> node)
-	{
-		if (item.compareTo(node.key) > 0)
-		{
+	private Treenode<T> deleteHelper(T item, Treenode<T> node) {
+		if (item.compareTo(node.key) > 0) {
 			node.right = deleteHelper(item, node.right);
 		}
-		else if (item.compareTo(node.key) < 0)
-		{
+		else if (item.compareTo(node.key) < 0) {
 			node.left = deleteHelper(item, node.left);
 		}
-		else
-		{
-			if (node.left == null || node.right == null)
-			{
-				if (node.left == null && node.right == null)
-				{
+		else {
+			if (node.left == null || node.right == null) {
+				if (node.left == null && node.right == null) {
 					node = null;
 				}
 				else if (node.left != null)
 				{
 					return node.left;
 				}
-				else
-				{
+				else {
 					return node.right;
 				}
 			}
-			else
-			{
+			else {
 				T succNode = leftMost(node.right);
 				node.key = succNode;
 				node.right = deleteHelper(succNode, node.right);
@@ -288,66 +251,52 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	/**
 	 * Balances the red-black after we are inserting. This does not check when we are deleting from the tree.
 	 *
-	 * @param node (Describe the first parameter here)
+	 * @param node The node of focal point
 	 */
-	private void balance(Treenode<T> node)
-	{
+	private void balance(Treenode<T> node) {
 		Treenode<T> balNode = getNode(node);
-		if (node == root)
-		{
+		if (node == root) {
 			root.color = false;
 			return;
 		}
-		if (node.parent.color != false)
-		{
-			if (balNode == null || balNode.color == false)
-			{
-				if (node.parent.parent.left == node.parent)
-				{
-					if (node.parent.left == node)
-					{
+		if (node.parent.color != false) {
+			if (balNode == null || balNode.color == false) {
+				if (node.parent.parent.left == node.parent) {
+					if (node.parent.left == node) {
 						rotateRight(node.parent.parent);
 						
-						if (node.parent.color != node.parent.right.color)
-						{
+						if (node.parent.color != node.parent.right.color) {
 							boolean colorTemp = node.parent.color;
 							node.parent.color = node.parent.right.color;
 							node.parent.right.color = colorTemp;
 						}
 					}
-					else
-					{
+					else {
 						rotateLeft(node.parent);
 						rotateRight(node.left);
 						
-						if (node.color != node.right.color)
-						{
+						if (node.color != node.right.color) {
 							boolean colorTemp = node.color;
 							node.color = node.right.color;
 							node.right.color = colorTemp;
 						}
 					}
 				}
-				else
-				{
-					if (node.parent.left == node)
-					{
+				else {
+					if (node.parent.left == node) {
 						rotateRight(node.parent);
 						rotateLeft(node.left);
 						
-						if (node.color != node.left.color)
-						{
+						if (node.color != node.left.color) {
 							boolean colorTemp = node.color;
 							node.color = node.left.color;
 							node.left.color = colorTemp;
 						}
 					}
-					else
-					{
+					else {
 						rotateLeft(node.parent.parent);
 						
-						if (node.parent.color != node.parent.left.color)
-						{
+						if (node.parent.color != node.parent.left.color) {
 							boolean colorTemp = node.parent.color;
 							node.parent.color = node.parent.left.color;
 							node.parent.left.color = colorTemp;
@@ -355,8 +304,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 					}
 				}
 			}
-			else if (balNode.color == true)
-			{
+			else if (balNode.color == true) {
 				balNode.color = false;
 				node.parent.color = false;
 				node.parent.parent.color = true;
@@ -366,34 +314,26 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * Used in rebalancing of tree. Checking the uncle to correctly form to 
+	 * Used in rebalancing of tree. Checking the uncle to correctly form to Red-Black properties. 
 	 *
-	 * @param node T
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param node The node which we are rotating from.
 	 */
-	private void rotateLeft(Treenode<T> node)
-	{
+	private void rotateLeft(Treenode<T> node) {
 		Treenode<T> temp;
 		temp = node.right;
 		node.right = temp.left;
-		if (temp.left != null)
-		{
+		if (temp.left != null) {
 			temp.left.parent = node;
 		}
 		temp.parent = node.parent;
-		if (node.parent == null)
-		{
+		if (node.parent == null) {
 			root = temp;
 		}
-		else
-		{
-			if(node == (node.parent).left)
-			{
+		else {
+			if(node == (node.parent).left) {
 				node.parent.left = temp;
 			}
-			else
-			{
+			else {
 				node.parent.right = temp;
 			}
 		}
@@ -402,36 +342,26 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Rotates nodes one to the right with temp as a focal point
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param node The node which we are rotating from
 	 */
-	private void rotateRight(Treenode<T> node)
-	{
+	private void rotateRight(Treenode<T> node) {
 		Treenode<T> temp;
 		temp = node.left;
 		node.left = temp.right;
-		if (temp.right != null)
-		{
+		if (temp.right != null) {
 			temp.right.parent = node;
 		}
 		temp.parent = node.parent;
-		if (node.parent == null)
-		{
+		if (node.parent == null) {
 			root = temp;
 		}
-		else
-		{
-			if(node == (node.parent).right)
-			{
+		else {
+			if(node == (node.parent).right) {
 				node.parent.right = temp;
 			}
-			else
-			{
+			else {
 				node.parent.left = temp;
 			}
 		}
@@ -440,19 +370,14 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 	}
 	
 	/**
-	 * (Write a succinct description of this method here.  If necessary,
-	 * additional paragraphs should be preceded by <p>, the html tag for
-	 * a new paragraph.)
+	 * Finding the smallest key. Used when we are attempting to use successor to
+	 * delete a node from our tree
 	 *
-	 * @param (parameter name) (Describe the first parameter here)
-	 * @param (parameter name) (Do the same for each additional parameter)
-	 * @return (description of the return value)
+	 * @param node The node being used.
+	 * @return The left-most node.
 	 */
 	private T leftMost(Treenode<T> node) {
-		// TODO return the key value of the left most node in this subtree
-		// or return node's key if node does not have a left child
-		if (node.left == null)
-		{
+		if (node.left == null) {
 			return node.key;
 		}
 		return leftMost(node.left);
