@@ -16,10 +16,10 @@
 
 /**
  * The program makes use of a balanced search tree, specifically RED-BLACK for rebalancing purposes. 
- * While rebalancing aftering a new node is to be inserted will work as expected, deleting and then rebalancing 
- * was not as this was not expected from the p2 assignment. Makes use of the given skeleton code. Uses typical red-black 
- * implementation to abide by given red-black properties. Program ultimately allows one to insert, delete, lookup, as well 
- * as rotate when the integrety of program is lost.
+ * As for rebalancing aftering a new node is inserted, the program will work as expected. Yet, deleting and then rebalancing 
+ * was not expected out of the p2 assignment. It should be noted P2 Makes use of the given skeleton code and uses a typical red-black 
+ * implementation to abide by given such properties. Program ultimately allows one to insert, delete, lookup, as well 
+ * as rotate when the program has lost its integrity.
  *
  * @author Dustin Li, Brennan Fife
  */
