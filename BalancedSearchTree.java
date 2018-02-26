@@ -250,6 +250,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		else {
 			if (node.left == null || node.right == null) {
 				if (node.left == null && node.right == null) {
+					node.key = null;
 					node = null;
 				}
 				else if (node.left != null)
