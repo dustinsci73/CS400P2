@@ -15,11 +15,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * The program makes use of a balanced search tree, specifically a RED-BLACK tree to rebalance. 
- * While rebalancing aftering inserting new node will work as expected, deleting and then rebalancing 
- * was not expected. Makes use of the given skeleton code. Uses a typical red-black implementation to follow given 
- * properties. Program ultimately allows one to insert, delete, lookup, as well as rotate when the integrety of a 
- * is lost.
+ * The program makes use of a balanced search tree, specifically RED-BLACK for rebalancing purposes. 
+ * While rebalancing aftering a new node is to be inserted will work as expected, deleting and then rebalancing 
+ * was not as this was not expected from the p2 assignment. Makes use of the given skeleton code. Uses typical red-black 
+ * implementation to abide by given red-black properties. Program ultimately allows one to insert, delete, lookup, as well 
+ * as rotate when the integrety of program is lost.
  *
  * @author Dustin Li, Brennan Fife
  */
@@ -27,7 +27,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 
 	/**
 	 * Inner class for nodes within the binary tree. Stores key items and links to 
-	 * sibling or parent nodes.
+	 * sibling, parent nodes.
 	 * 
 	 * @author Dustin Li, Brennan Fife
 	 * @param <K> Generic comparable object for key when evaluating.
@@ -44,7 +44,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 			this.parent = parent; //node parent
 		}
 		
-		boolean color; //true, false to check if node is certain color. Helps in verifying Red-Black property
+		boolean color; //true, false to check if node is of a certain color. Helps in verifying Red-Black property
 		K key;
 		Treenode<K> left; //links to left subtree
 		Treenode<K> right; //links to right subtree
@@ -81,7 +81,7 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 			if (node.left != null) {
 				result += AscendingOrderHelper(node.left);
 			}
-			result += node.key + " ";
+			result += node.key + ",";
 			if (node.right != null) {
 				result += AscendingOrderHelper(node.right);
 			}
