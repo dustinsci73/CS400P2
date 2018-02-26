@@ -178,8 +178,10 @@ public class BalancedSearchTree<T extends Comparable<T>> implements SearchTreeAD
 		}
 		else {
 			Treenode<T> node = insertHelper(item, root);
-			balance(node);
-			root.color = false;
+			if (!(node.parent == root)) {
+				balance(node);
+				root.color = false;
+			}
 		}
 	}
 
